@@ -62,6 +62,7 @@ def query_db(query, args=(), one=False, post=False):
 
 # Campos que se visualizaran
 campos_libro = {
+    'id': fields.Integer,
     'titulo': fields.String,
     'descripcion': fields.String,
     'uri': fields.Url('libro')
@@ -106,7 +107,7 @@ class LibroAPI(Resource):
         libro = query_db('select * from libro where id == ?', [id])
         if len(libro) == 0:
             abort(404)
-        return {'libro': marshal(libro[0], campos_libro)}
+        return {'libros': marshal(libro, campos_libro)}
 
 
 api.add_resource(LibrosAPI, '/libros/', endpoint='libros')
